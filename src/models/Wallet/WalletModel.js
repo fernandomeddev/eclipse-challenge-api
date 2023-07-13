@@ -7,6 +7,10 @@ const wallet = new Schema({
         ref: 'Owner',
         required: true,
     },
+    walletName:{
+        type: String,
+        required: true
+    },
     balance: {
         type: String,
         default: '0',
@@ -25,11 +29,11 @@ const wallet = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now,
         require: false
     },
     updatedAt: {
         type: Date,
+        default: Date.now,
         require: false
     },
 

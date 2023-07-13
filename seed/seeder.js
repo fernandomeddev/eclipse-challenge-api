@@ -2,10 +2,12 @@ require('dotenv').config();
 const dbUser = process.env.DB_USER
 const dbPassword = process.env.DB_PASS
 
+const OffersModel = require('../src/models/Offer/OffersModel');
 const OwnerModel = require('../src/models/Owner/OwnerModel');
 const WalletModel = require('../src/models/Wallet/WalletModel');
 
 const mongoose = require('mongoose');
+const fs = require('fs');
 
 mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@sharkdev-api.plzqojw.mongodb.net/?retryWrites=true&w=majority`, { useNewUrlParser: true })
     .then(() => {
@@ -25,6 +27,18 @@ const seedOwner = [
     }
 ];
 
+function writeJSONToFile(jsonData, filePath) {
+    const jsonString = JSON.stringify(jsonData, null, 2);
+  
+    fs.writeFile(filePath, jsonString, err => {
+      if (err) {
+        console.error('Erro ao escrever o arquivo:', err);
+      } else {
+        console.log('Arquivo JSON foi escrito com sucesso:', filePath);
+      }
+    });
+}
+
 const seedDB = async () => {
     
     const clearUpOwnerTable = await OwnerModel.find({});
@@ -33,6 +47,8 @@ const seedDB = async () => {
     if(clearUpOwnerTable || clearUpWalletTable ){
         await OwnerModel.deleteMany({});
         await WalletModel.deleteMany({});
+        await OffersModel.deleteMany({});
+    
         console.log('Foi necessário remover dados obsoletos');
     };
 
@@ -44,20 +60,37 @@ const seedDB = async () => {
         const seedWallet = [
             {   
                 owner: user.id,
+                walletName: 'WalletA',
                 amount: 50,
+                createdAt: Date.now()
             },
             {
                 owner: user.id,
+                walletName: 'WalletB',
                 amount: 30,
+                createdAt: Date.now()
             },
         ]
 
         await WalletModel.insertMany(seedWallet);
     }
     
+    // criar um obj com os dados do usuário e carteira.
 };
 
+
+  // Exemplo de uso da função
+const jsonData = {
+    name: 'John Doe',
+    age: 30,
+    city: 'Exampleville'
+};
+const filePath = 'output.json';
+
+// writeJSONToFile(data, filePath);
+
 seedDB().then(() => {
-    console.log('Dados Criados com sucesso!')
+    
+    writeJSONToFile(jsonData, filePath)
     mongoose.connection.close();
 });

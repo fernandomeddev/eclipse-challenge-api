@@ -21,7 +21,7 @@ const offer = new Schema({
         required: true
     },
     createdAt: {
-        type: String,
+        type: Date,
         require: true
     },
     status: {

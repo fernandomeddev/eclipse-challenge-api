@@ -2,11 +2,11 @@ const CreateOfferService = require('../services/CreateOfferService');
 
 module.exports = async (request, response) => {
     try {
-        const { owner_id: ownerId  } = request.params;
+        const { wallet_id: walletId  } = request.params;
         const body = request.body;
 
         const createOfferService = new CreateOfferService();
-        const responseService = await createOfferService.handle(ownerId, body );
+        const responseService = await createOfferService.handle(walletId, body );
 
         if( responseService.responseError ) return response.status(422).json({ error: responseService.errorMessage})
         

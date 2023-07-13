@@ -11,8 +11,7 @@ router.get('/offers',
     ShowOffersController
 )
 
-router.post('/offer/:owner_id',
-    ValidUserMiddleware,
+router.post('/offer/:wallet_id',
     CreateOfferController
 )
 

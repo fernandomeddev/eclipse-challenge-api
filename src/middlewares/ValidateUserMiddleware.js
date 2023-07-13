@@ -1,19 +1,21 @@
 const OwnerModel = require('../models/Owner/OwnerModel');
-const WalletModel = require('../models/Wallet/WalletModel');
+const OfferModel = require('../models/Offer/OffersModel');
 
 module.exports = async (request, response, next) => {
-    const {  owner_id:ownerId} = request.params;
-    const body = request.body;
+    const {  owner_id: ownerId} = request.params;
+    const { offer_id: offerId } = request.body;
 
-    if (!body.wallet) return response.status(401).json({ responseError: true, errorMessage: 'wallet Id is require' });
+    if (!offerId) return response.status(401).json({ responseError: true, errorMessage: 'Offer id is required' });
 
     const currentUser = await OwnerModel.findById(ownerId);
     if (!currentUser) return response.status(401).json({ responseError: true, errorMessage: 'User not valid'});
 
-    const currentWallet = await WalletModel.findById(body.wallet).populate({path:'owner'});
-    if(!currentWallet) return response.status(401).json({ responseError: true, errorMessage: 'wallet do not exists'});
+    const currentOffer = await OfferModel.findById(offerId);
+    if (!currentOffer) return response.status(401).json({ responseError: true, errorMessage: 'Offer not exists'});
 
-    if ( currentUser.id !== currentWallet.owner.id) return response.status(401).json({ responseError: true, errorMessage: 'This wallet does not valid' });
+    const currentOfferPopulate = await OfferModel.findById(offerId).populate({ path: 'ownerId'});
+
+    if ( currentUser.id !== currentOfferPopulate.ownerId.id) return response.status(401).json({ responseError: true, errorMessage: 'This wallet does not valid' });
     
     return next();
 };

@@ -2,11 +2,10 @@ const RemoveOfferService = require('../services/RemoveOfferService');
 
 module.exports = async (request, response) => {
     try {
-        const { owner_id: ownerId  } = request.params;
-        const body = request.body;
+        const { offer_id: offerId } = request.body;
 
         const removeOfferService = new RemoveOfferService();
-        const responseService = await removeOfferService.handle(ownerId, body );
+        const responseService = await removeOfferService.handle(offerId);
 
         if( responseService.responseError ) return response.status(422).json({ error: responseService.errorMessage})
         

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@sharkdev-api.plzqojw.mongodb.net/?retryWrites=true&w=majority`, { useNewUrlParser: true })
     .then(() => {
-        console.log('connected with mongoDB')
+        console.log('.............connected with mongoDB..............')
     })
     .catch(e => {
         const msg = 'MongoDB conection Error!'

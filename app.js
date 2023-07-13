@@ -1,6 +1,6 @@
 require('dotenv').config();
-
 const express = require('express');
+const ManagerCron = require('./manager-cron');
 const app = express();
 const cors = require('cors')
 const consign = require('consign');
@@ -21,5 +21,6 @@ app.get("/terms", (req, res) => {
 });
 
 app.listen(3333, () => {
-    console.log('Api Rodando.');
+    console.log('................server is Running................');
+    ManagerCron.run()
 });
