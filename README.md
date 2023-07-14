@@ -68,5 +68,24 @@ O balcão de ofertas nada mais é do que uma área onde os usuários do aplicati
 Usuários detentores de moedas podem vendê-las por qualquer motivo. Para isto se faz o lançamento de uma oferta, onde se escolhe o preço unitário da moeda e sua quantidade.
  
 # Melhorias futuras:
-Implementação de uma documentação no swagger.
+Implementação de uma documentação com swagger.
+
+Ajsute no Cronjob, colocando um limite do número de registros buscados: Em vez de buscar todos os registros do banco de dados a cada minuto, limitar a consulta apenas aos registros que foram modificados desde a última verificação do cron job. Isso pode ser feito adicionando um campo "última verificação" na coleção e consultando apenas os registros que foram atualizados desde então.
+
+Agendar o cron job em horários de baixo tráfego: Se possível, agendar o cron job para ser executado em horários de baixo tráfego no sistema. Isso evitará que o cron job cause impacto negativo no desempenho geral da aplicação durante períodos de alta demanda.
+
+Mudar o código para TypeScript : É importante lembrar que migrar para o TypeScript  e converter o código existente. Os benefícios a longo prazo geralmente superam esses desafios iniciais, especialmente em projetos maiores ou em equipes de desenvolvimento colaborativas.
+
+Melhorar as tratativas de Erros: Mensagens de Erro, e uso de alguma lib (Yup por exemplo) para fazer as validações.
+
+Criação de Testes Unitários
+
+
+# Considerações Finais:
+
+No aspecto geral, a aplicação tem potêncial de crescimento e implementação de novas funcionalidades, e conta com uma arquitetura limpa e de fácil entendimento e manutenção;
+
+#Duvidas entre em contato;
+
+fernandohenrique520@live.com
 
